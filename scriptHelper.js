@@ -17,11 +17,44 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
-   
+   if(testInput == '') {
+    return "Empty";
+   }
+   else if(isNaN(testInput)) {
+    return "Not a Number";
+   }
+   else {
+    return "Is a Number";
+   }
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   
+   if(validateInput(pilot) != "Not a Number"){
+    alert("Pilot name required");
+   }
+   else if(validateInput(copilot) != "Not a Number"){
+    alert("Co-Pilot Name required");
+   }
+   else if (validateInput(fuelLevel) != "Is a Number"){
+    alert("Fuel Level is required as a number");
+   }
+   else if (validateInput(cargoLevel) != "Is a Number"){
+    alert("Cargo Level is required as a number");
+   }
+
+   else {
+    document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is is ready for launch`;
+    document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is is ready for launch`;
+    let fuelStatusDiv = document.getElementById("fuelStatus");
+    if(fuelStatus < 10000){
+        fuelStatusDiv.innerHTML = "Fuel level too low for launch"
+        document.getElementBtId("faultyItems").style.visiblity = "visible";
+    }
+    else {
+        fuelStatusDiv.innerHTML = "Fu"
+    }
+   }
+
 }
 
 async function myFetch() {
