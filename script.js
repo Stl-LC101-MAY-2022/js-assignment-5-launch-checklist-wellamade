@@ -1,21 +1,5 @@
 // Write your JavaScript code here!
 
-//1. Use preventDefault() to prevent a request from being sent out and the page reloading.
-
-//      Prevent Form Submission
-//We should prevent the form submission from happening until all inputs have valid values. We can use the event parameter and event.preventDefault() to stop the form submission. event.preventDefault() prevents default browser functionality from happening, like form submission when <button> tags are clicked inside of a form. Remember that event handler functions are passed an event argument which represents the event that the handler is responding to.
-
-    // EXAMPLE
-    // window.addEventListener("load", function() {
-    //  let form = document.querySelector("form"); 
-    //  form.addEventListener("submit", function(event) {
-    //     let usernameInput = document.querySelector("input[name=username]");
-    //     let teamName = document.querySelector("input[name=team]");
-    //     if (usernameInput.value === "" || teamName.value === "") {
-    //        alert("All fields are required!");
-    //        // stop the form submission
-    //        event.preventDefault();
-
 
 
 //2. Validate the user-submitted data to ensure the following:
@@ -68,28 +52,22 @@
         // })
 
     // First, do as the comments in the code tell you and set listedPlanetsResponse equal to the value returned when calling myFetch(). This value is going to be a promise. If we head to our browser and open up our developer tools, we can now see a list of the planets. Then using pickPlanet() and addDestinationInfo(), select a planet at random from listedPlanets and pass that information to addDestinationInfo(). Reload your page and check out your site to see the mission target information.
+    
+    const sH = require('./scriptHelper.js');
+    // Includes: addDestinationInfo, validateInput, formSubmission, pickPlanet, myFetch
 
 window.addEventListener("load", function() {
-
-    // let form = document.querySelector("form"); 
-    //  form.addEventListener("submit", function(event) {
-    //     let pilotInput = document.querySelector("input[name=pilotname]");
-    //     let copilotInput = document.querySelector("input[name=copilotname]");
-    //     if (pilotInput.value === "" || copilotInput.value === "") {
-    //        alert("All fields are required!");
-    //        // stop the form submission
-    //        event.preventDefault();
-    //     }});
-
+    let form = document.querySelector("form")
+    form.addEventListener("form submission", sH.formSubmission)
    let listedPlanets;
-   // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-   let listedPlanetsResponse;
-   listedPlanetsResponse.then(function (result) {
-       listedPlanets = result;
-       console.log(listedPlanets);
-   }).then(function () {
-       console.log(listedPlanets);
-       // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-   })
-   
+   //Set listedPlanetsResponse equal to the value returned by calling myFetch()
+    let listedPlanetsResponse = sH.myFetch();
+        listedPlanetsResponse.then(function (result) {
+            listedPlanets = result;
+            console.log(listedPlanets);
+        }).then(function () {
+            console.log(listedPlanets);
+           // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
+        })
+
 });
