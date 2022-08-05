@@ -2,6 +2,7 @@
 
 
 
+
 //2. Validate the user-submitted data to ensure the following:
 //  a. The user entered something for every field.
 //  b. The user entered text for names and numbers for fuel and cargo levels.
@@ -53,21 +54,46 @@
 
     // First, do as the comments in the code tell you and set listedPlanetsResponse equal to the value returned when calling myFetch(). This value is going to be a promise. If we head to our browser and open up our developer tools, we can now see a list of the planets. Then using pickPlanet() and addDestinationInfo(), select a planet at random from listedPlanets and pass that information to addDestinationInfo(). Reload your page and check out your site to see the mission target information.
     
-    const sH = require('./scriptHelper.js');
+    //const sH = require('./scriptHelper.js');
     // Includes: addDestinationInfo, validateInput, formSubmission, pickPlanet, myFetch
 
+
 window.addEventListener("load", function() {
-    let form = document.querySelector("form")
-    form.addEventListener("form submission", sH.formSubmission)
-   let listedPlanets;
-   //Set listedPlanetsResponse equal to the value returned by calling myFetch()
-    let listedPlanetsResponse = sH.myFetch();
-        listedPlanetsResponse.then(function (result) {
-            listedPlanets = result;
-            console.log(listedPlanets);
-        }).then(function () {
-            console.log(listedPlanets);
-           // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-        })
+    let listedPlanets;
+   
+    let listedPlanetsResponse = myFetch();
+
+    listedPlanetsResponse.then(function (result) {
+        listedPlanets = result;
+        console.log(listedPlanets);
+    }).then(function () {
+        console.log(listedPlanets);
+
+        let thePlanet = pickPlanet(listedPlanets);
+        addDestinationInfo(document, thePlanet.name, thePlanet.diameter, thePlanet.star, thePlanet.distance, thePlanet.moons, thePlanet.image)
+    })
+
+    let list = document.getElementById("faultyItems");
+
+    list.style.visibility = "hidden";
+
+    let form = document.querySelector("form");
+    form.addEventListener("submit", function(event){
+        event.preventDefault()
+        let pilotNameHTML = document.querySelector("input[name=pilotName]");
+        let copilotNameHTML = document.querySelector("input[name=copilotName]");
+        let fuelLevelHTML = document.querySelector("input[name=fuelLevel]");
+        let cargoMassHTML = document.querySelector("input[name=cargoMass]");    
+    
+        let pilotValue = pilotNameHTML.value;
+        let copilotValue = copilotNameHTML.value;
+        let fuelValue = fuelLevelHTML.value;
+        let cargoValue = cargoMassHTML.value;
+    
+        formSubmission(document,list,pilotValue,copilotValue,fuelValue,cargoValue)
+        
+    });
+
+   
 
 });
